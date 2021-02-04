@@ -29,7 +29,8 @@ public class BaseGun : MonoBehaviour
     {
         if (CanShoot && CurrentAmmo > 0 && !_magazineIsEmpty)
         {
-            Instantiate(BaseBullet, BulletSpawnPoint.position, BulletSpawnPoint.rotation);
+            BaseBullet baseBullet = Instantiate(BaseBullet, BulletSpawnPoint.position, BulletSpawnPoint.rotation);
+            baseBullet.gameObject.SetActive(true);
             CurrentAmmo--;
             CanShoot = false;
             StartCoroutine(ToggleCanShoot());
