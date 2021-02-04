@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Character Controller")]
     public CharacterController characterController;
@@ -20,12 +20,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Button Layout")]
     public KeyCode CrouchKey;
     public KeyCode SprintKey;
-
+    public KeyCode ReloadKey;
+    public int ShootKey;
 
     [Header("Grounded Check")]
     public Transform GroundCheck;
     public float GroundDistance = 0.4f;
     public LayerMask GroundMask;
+
+    private BaseGun _gun;
 
     private Vector3 _velocity;
     private bool _isGrounded;
@@ -41,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
 
         _defaultPlayerHeight = transform.localScale.y;
         _defaultMovementSpeed = MovementSpeed;
+
+        _gun = GetComponentInChildren<BaseGun>();
     }
 
     // Update is called once per frame
@@ -55,6 +60,10 @@ public class PlayerMovement : MonoBehaviour
         CheckCrouch();
 
         CheckSprint();
+
+        CheckShoot();
+
+        CheckReload();
     }
 
     private void CheckGrounded()
@@ -89,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // TODO change this, move the camera position when there are meshes
     private void CheckCrouch()
     {
         if (Input.GetKeyDown(CrouchKey))
@@ -110,6 +120,26 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyUp(SprintKey))
         {
             MovementSpeed = _defaultMovementSpeed;
+        }
+    }
+
+    private void CheckShoot()
+    {
+        if (Input.GetMouseButton(ShootKey) && _gun)
+        {
+            _gun.Shoot();
+        }
+    }
+
+    private void CheckReload()
+    {
+        if (_gun && _gun.CurrentAmmo < 1)
+        {
+            _gun.Reload();
+        }
+        else if (Input.GetKeyDown(ReloadKey) && _gun)
+        {
+            _gun.Reload();
         }
     }
 }

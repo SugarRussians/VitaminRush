@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5869810421258604975}
   - component: {fileID: 5869810421258604972}
   - component: {fileID: 5869810421258604969}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5869810421526539246}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 5869810422245269320}
   - component: {fileID: 5869810422245269367}
   - component: {fileID: 5869810422245269364}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,6 +249,8 @@ MonoBehaviour:
   MainCamera: {fileID: 5869810421258604973}
   CrouchKey: 306
   SprintKey: 304
+  ReloadKey: 0
+  ShootKey: 0
   GroundCheck: {fileID: 5869810421526539246}
   GroundDistance: 0.4
   GroundMask:
