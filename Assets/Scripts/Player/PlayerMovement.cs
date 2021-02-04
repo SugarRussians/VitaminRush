@@ -4,12 +4,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Character Controller")]
     public CharacterController characterController;
 
+    [Header("Player Variables")]
     public float MovementSpeed;
+    public float SprintMovementSpeed;
     public float gravity;
     public float JumpHeight;
+    public float CrouchHeight;
 
+    [Header("Camera")]
+    public GameObject MainCamera;
+
+    [Header("Button Layout")]
+    public KeyCode CrouchKey;
+    public KeyCode SprintKey;
+
+
+    [Header("Grounded Check")]
     public Transform GroundCheck;
     public float GroundDistance = 0.4f;
     public LayerMask GroundMask;
@@ -19,9 +32,15 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rigidbody;
 
-    private void Start()
+    private float _defaultPlayerHeight;
+    private float _defaultMovementSpeed;
+
+    private void Awake()
     {
         //_rigidbody = GetComponent<Rigidbody>();
+
+        _defaultPlayerHeight = transform.localScale.y;
+        _defaultMovementSpeed = MovementSpeed;
     }
 
     // Update is called once per frame
@@ -32,6 +51,10 @@ public class PlayerMovement : MonoBehaviour
         CheckMovementInput();
 
         CheckJump();
+
+        CheckCrouch();
+
+        CheckSprint();
     }
 
     private void CheckGrounded()
@@ -66,4 +89,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void CheckCrouch()
+    {
+        if (Input.GetKeyDown(CrouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, CrouchHeight, transform.localScale.z);
+        }
+        else if (Input.GetKeyUp(CrouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, _defaultPlayerHeight, transform.localScale.z);
+        }
+    }
+
+    private void CheckSprint()
+    {
+        if (Input.GetKeyDown(SprintKey))
+        {
+            MovementSpeed = SprintMovementSpeed;
+        }
+        else if (Input.GetKeyUp(SprintKey))
+        {
+            MovementSpeed = _defaultMovementSpeed;
+        }
+    }
 }

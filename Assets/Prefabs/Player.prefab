@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5869810421258604973}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.58, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5869810422245269365}
@@ -156,7 +156,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5869810422245269321}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -241,9 +241,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 5869810422245269364}
-  MovementSpeed: 7
-  gravity: -9.81
-  JumpHeight: 3
+  MovementSpeed: 6
+  SprintMovementSpeed: 12
+  gravity: -16
+  JumpHeight: 2
+  CrouchHeight: 0.6
+  MainCamera: {fileID: 5869810421258604973}
+  CrouchKey: 306
+  SprintKey: 304
   GroundCheck: {fileID: 5869810421526539246}
   GroundDistance: 0.4
   GroundMask:
