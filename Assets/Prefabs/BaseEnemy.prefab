@@ -162,6 +162,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 2126575106082796219}
   gravity: -16
+  MaxHealth: 100
+  CurrentHealth: 0
+  HealthRegenDelay: 2
   GroundCheck: {fileID: 5869810421526539246}
   GroundDistance: 0.4
   GroundMask:

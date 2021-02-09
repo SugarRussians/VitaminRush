@@ -11,6 +11,7 @@ public abstract class BaseEntity : MonoBehaviour
     public float gravity;
     public float MaxHealth = 100;
     public float CurrentHealth;
+    public float HealthRegenDelay;
 
     [Header("Grounded Check")]
     public Transform GroundCheck;
@@ -20,6 +21,8 @@ public abstract class BaseEntity : MonoBehaviour
     public Vector3 EntityVelocity;
 
     public bool IsGrounded;
+
+    private bool _isTakingDamage;
 
     public void InitializeCharacterController()
     {
@@ -46,5 +49,37 @@ public abstract class BaseEntity : MonoBehaviour
     public void TakeDamage(float damageTaken)
     {
         CurrentHealth -= damageTaken;
+        _isTakingDamage = true;
+        StartCoroutine(CheckHealthRegen());
+    }
+
+    private IEnumerator CheckHealthRegen()
+    {
+        float prevHealth = CurrentHealth;
+        yield return new WaitForSeconds(HealthRegenDelay);
+        if (prevHealth == CurrentHealth)
+        {
+            _isTakingDamage = false;
+            StartCoroutine(RegenHealth());
+        }
+    }
+
+    private IEnumerator RegenHealth()
+    {
+        float healthToRegen = (MaxHealth - CurrentHealth);
+        for (int i = 0; i < healthToRegen; i++)
+        {
+            if (CurrentHealth + i >= MaxHealth)
+            {
+                CurrentHealth = MaxHealth;
+                break;
+            }
+            if (_isTakingDamage)
+            {
+                break;
+            }
+            CurrentHealth += i;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
