@@ -244,6 +244,8 @@ MonoBehaviour:
   characterController: {fileID: 5869810422245269364}
   MovementSpeed: 6
   SprintMovementSpeed: 12
+  CrouchMovementSpeed: 3
+  ADSMovementSpeed: 3
   gravity: -16
   JumpHeight: 2
   CrouchHeight: 0.6
@@ -252,6 +254,7 @@ MonoBehaviour:
   SprintKey: 304
   ReloadKey: 114
   ShootKey: 0
+  ADSKey: 1
   GroundCheck: {fileID: 5869810421526539246}
   GroundDistance: 0.4
   GroundMask:
