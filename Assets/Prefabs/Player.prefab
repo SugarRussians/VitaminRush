@@ -287,7 +287,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2440327407434079837, guid: 1faf30effca5b1b44891987f34ed5888, type: 3}
       propertyPath: BulletVelocity
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4963488227179065248, guid: 1faf30effca5b1b44891987f34ed5888, type: 3}
       propertyPath: m_RootOrder
@@ -333,9 +333,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4963488227179065252, guid: 1faf30effca5b1b44891987f34ed5888, type: 3}
+      propertyPath: Accuracy
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4963488227179065263, guid: 1faf30effca5b1b44891987f34ed5888, type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716869782667579849, guid: 1faf30effca5b1b44891987f34ed5888, type: 3}
+      propertyPath: m_Constraints
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1faf30effca5b1b44891987f34ed5888, type: 3}

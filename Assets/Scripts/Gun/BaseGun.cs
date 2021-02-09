@@ -19,6 +19,9 @@ public class BaseGun : MonoBehaviour
 
     public int CurrentAmmo;
 
+    [Header("0 is no spread, 4 is already inaccurate")]
+    public float Accuracy;
+
     private void Awake()
     {
         CurrentAmmo = MagazineSize;
@@ -28,10 +31,11 @@ public class BaseGun : MonoBehaviour
     {
         if (CanShoot && CurrentAmmo > 0 && !MagazineIsEmpty)
         {
-            BaseBullet baseBullet = Instantiate(BaseBullet, BulletSpawnPoint.position, BulletSpawnPoint.rotation);
-            baseBullet.gameObject.SetActive(true);
+            CreateBullet();
+
             CurrentAmmo--;
             CanShoot = false;
+
             StartCoroutine(ToggleCanShoot());
         }
     }
@@ -41,6 +45,19 @@ public class BaseGun : MonoBehaviour
         MagazineIsEmpty = true;
         CurrentAmmo = MagazineSize;
         StartCoroutine(ToggleMagazineIsEmpty());
+    }
+
+    private void CreateBullet()
+    {
+        var randomNumberX = Random.Range(-Accuracy, Accuracy);
+        var randomNumberY = Random.Range(-Accuracy, Accuracy);
+        var randomNumberZ = Random.Range(-Accuracy, Accuracy);
+
+        Vector3 spread = new Vector3(randomNumberX, randomNumberY, randomNumberZ);
+        Quaternion rotation = Quaternion.Euler(spread) * BulletSpawnPoint.rotation;
+
+        BaseBullet baseBullet = Instantiate(BaseBullet, BulletSpawnPoint.position, rotation);
+        baseBullet.gameObject.SetActive(true);
     }
 
     private IEnumerator ToggleCanShoot()
