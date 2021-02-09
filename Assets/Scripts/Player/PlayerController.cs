@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseEntity
 {
-    [Header("Character Controller")]
-    public CharacterController characterController;
-
     [Header("Player Variables")]
     public float MovementSpeed;
     public float SprintMovementSpeed;
     public float CrouchMovementSpeed;
     public float ADSMovementSpeed;
-    public float gravity;
     public float JumpHeight;
     public float CrouchHeight;
 
@@ -26,18 +22,10 @@ public class PlayerController : MonoBehaviour
     public int ShootKey;
     public int ADSKey;
 
-    [Header("Grounded Check")]
-    public Transform GroundCheck;
-    public float GroundDistance = 0.4f;
-    public LayerMask GroundMask;
-
-    private BaseGun _gun;
-
-    private Vector3 _velocity;
+    public BaseGun Gun;
 
     private Rigidbody _rigidbody;
 
-    private bool _isGrounded;
     private bool _isCrouching;
     private bool _isShooting;
     private bool _isADS;
@@ -47,12 +35,11 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        InitializeCharacterController();
         //_rigidbody = GetComponent<Rigidbody>();
 
         _defaultPlayerHeight = transform.localScale.y;
         _defaultMovementSpeed = MovementSpeed;
-
-        _gun = GetComponentInChildren<BaseGun>();
     }
 
     // Update is called once per frame
@@ -75,16 +62,6 @@ public class PlayerController : MonoBehaviour
         CheckReload();
     }
 
-    private void CheckGrounded()
-    {
-        _isGrounded = Physics.CheckSphere(GroundCheck.position, GroundDistance, GroundMask);
-
-        if (_isGrounded && _velocity.y < 0)
-        {
-            _velocity.y = gravity;
-        }
-    }
-
     private void CheckMovementInput()
     {
         float x = Input.GetAxisRaw("Horizontal");
@@ -93,17 +70,13 @@ public class PlayerController : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
 
         characterController.Move(move * MovementSpeed * Time.deltaTime);
-
-        _velocity.y += gravity * Time.deltaTime;
-
-        characterController.Move(_velocity * Time.deltaTime);
     }
 
     private void CheckJump()
     {
-        if (Input.GetButtonDown("Jump") && _isGrounded)
+        if (Input.GetButtonDown("Jump") && IsGrounded)
         {
-            _velocity.y = Mathf.Sqrt(JumpHeight * -2f * gravity);
+            EntityVelocity.y = Mathf.Sqrt(JumpHeight * -2f * gravity);
         }
     }
 
@@ -138,10 +111,10 @@ public class PlayerController : MonoBehaviour
 
     private void CheckShoot()
     {
-        if (Input.GetMouseButton(ShootKey) && _gun)
+        if (Input.GetMouseButton(ShootKey) && Gun)
         {
-            _isShooting = !_gun.MagazineIsEmpty;
-            _gun.Shoot();
+            _isShooting = !Gun.MagazineIsEmpty;
+            Gun.Shoot();
         }
         else if (Input.GetMouseButtonUp(ShootKey))
         {
@@ -151,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckADS()
     {
-        if (Input.GetMouseButton(ADSKey) && _gun)
+        if (Input.GetMouseButton(ADSKey) && Gun)
         {
             _isADS = true;
             if (!_isCrouching)
@@ -171,13 +144,13 @@ public class PlayerController : MonoBehaviour
 
     private void CheckReload()
     {
-        if (_gun && _gun.CurrentAmmo < 1)
+        if (Gun && Gun.CurrentAmmo < 1)
         {
-            _gun.Reload();
+            Gun.Reload();
         }
-        else if (Input.GetKeyDown(ReloadKey) && _gun)
+        else if (Input.GetKeyDown(ReloadKey) && Gun)
         {
-            _gun.Reload();
+            Gun.Reload();
         }
     }
 }

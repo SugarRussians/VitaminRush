@@ -29,6 +29,12 @@ public class BaseBullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        BaseEntity baseEntity = collision.gameObject.GetComponent<BaseEntity>();
+        if (baseEntity)
+        {
+            baseEntity.TakeDamage(Damage);
+        }
+
         Destroy(gameObject);
     }
 }

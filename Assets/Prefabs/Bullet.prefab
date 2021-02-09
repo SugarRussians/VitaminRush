@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletVelocity: 40
-  Damage: 0
+  Damage: 10
 --- !u!54 &6676377464001036115
 Rigidbody:
   m_ObjectHideFlags: 0
