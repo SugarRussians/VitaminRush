@@ -223,6 +223,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1716123626, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
+      propertyPath: Accuracy
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716123626, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
+      propertyPath: StrayFactor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716123626, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
+      propertyPath: SpreadConeSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455965228758878599, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5869810422245269321, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
       propertyPath: m_Name
       value: Player
@@ -270,6 +286,10 @@ PrefabInstance:
     - target: {fileID: 5869810422245269365, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294726276195845651, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
+      propertyPath: BulletVelocity
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
