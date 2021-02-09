@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [Header("Player Variables")]
     public float MovementSpeed;
     public float SprintMovementSpeed;
+    public float CrouchMovementSpeed;
+    public float ADSMovementSpeed;
     public float gravity;
     public float JumpHeight;
     public float CrouchHeight;
@@ -17,11 +19,12 @@ public class PlayerController : MonoBehaviour
     [Header("Camera")]
     public GameObject MainCamera;
 
-    [Header("Button Layout")]
+    [Header("Button Layout, Left click = 0, Right click = 1, Middle Mouse click = 2")]
     public KeyCode CrouchKey;
     public KeyCode SprintKey;
     public KeyCode ReloadKey;
     public int ShootKey;
+    public int ADSKey;
 
     [Header("Grounded Check")]
     public Transform GroundCheck;
@@ -31,9 +34,13 @@ public class PlayerController : MonoBehaviour
     private BaseGun _gun;
 
     private Vector3 _velocity;
-    private bool _isGrounded;
 
     private Rigidbody _rigidbody;
+
+    private bool _isGrounded;
+    private bool _isCrouching;
+    private bool _isShooting;
+    private bool _isADS;
 
     private float _defaultPlayerHeight;
     private float _defaultMovementSpeed;
@@ -62,6 +69,8 @@ public class PlayerController : MonoBehaviour
         CheckSprint();
 
         CheckShoot();
+
+        CheckADS();
 
         CheckReload();
     }
@@ -103,21 +112,25 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(CrouchKey))
         {
+            _isCrouching = true;
+            MovementSpeed = CrouchMovementSpeed;
             transform.localScale = new Vector3(transform.localScale.x, CrouchHeight, transform.localScale.z);
         }
         else if (Input.GetKeyUp(CrouchKey))
         {
+            _isCrouching = false;
+            MovementSpeed = _defaultMovementSpeed;
             transform.localScale = new Vector3(transform.localScale.x, _defaultPlayerHeight, transform.localScale.z);
         }
     }
 
     private void CheckSprint()
     {
-        if (Input.GetKeyDown(SprintKey))
+        if (Input.GetKey(SprintKey) && !_isShooting && MovementSpeed != SprintMovementSpeed && !_isCrouching && !_isADS)
         {
             MovementSpeed = SprintMovementSpeed;
         }
-        else if (Input.GetKeyUp(SprintKey))
+        else if ((Input.GetKeyUp(SprintKey) || _isShooting) && !_isCrouching && !_isADS)
         {
             MovementSpeed = _defaultMovementSpeed;
         }
@@ -127,7 +140,32 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButton(ShootKey) && _gun)
         {
+            _isShooting = !_gun.MagazineIsEmpty;
             _gun.Shoot();
+        }
+        else if (Input.GetMouseButtonUp(ShootKey))
+        {
+            _isShooting = false;
+        }
+    }
+
+    private void CheckADS()
+    {
+        if (Input.GetMouseButton(ADSKey) && _gun)
+        {
+            _isADS = true;
+            if (!_isCrouching)
+            {
+                MovementSpeed = ADSMovementSpeed;
+            }
+        }
+        else if (Input.GetMouseButtonUp(ADSKey))
+        {
+            _isADS = false;
+            if (!_isCrouching)
+            {
+                MovementSpeed = _defaultMovementSpeed;
+            }
         }
     }
 
