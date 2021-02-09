@@ -21,6 +21,7 @@ public abstract class BaseEntity : MonoBehaviour
     public Vector3 EntityVelocity;
 
     public bool IsGrounded;
+    public bool IsDead;
 
     private bool _isTakingDamage;
 
@@ -49,6 +50,7 @@ public abstract class BaseEntity : MonoBehaviour
     public void TakeDamage(float damageTaken)
     {
         CurrentHealth -= damageTaken;
+        CheckDeath();
         _isTakingDamage = true;
         StartCoroutine(CheckHealthRegen());
     }
@@ -80,6 +82,14 @@ public abstract class BaseEntity : MonoBehaviour
             }
             CurrentHealth += i;
             yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private void CheckDeath()
+    {
+        if (CurrentHealth <= 0)
+        {
+            IsDead = true;
         }
     }
 }
