@@ -15,10 +15,9 @@ public class BaseGun : MonoBehaviour
     public BaseBullet BaseBullet;
 
     public bool CanShoot = true;
+    public bool MagazineIsEmpty;
 
     public int CurrentAmmo;
-
-    private bool _magazineIsEmpty;
 
     private void Awake()
     {
@@ -27,7 +26,7 @@ public class BaseGun : MonoBehaviour
 
     public void Shoot()
     {
-        if (CanShoot && CurrentAmmo > 0 && !_magazineIsEmpty)
+        if (CanShoot && CurrentAmmo > 0 && !MagazineIsEmpty)
         {
             BaseBullet baseBullet = Instantiate(BaseBullet, BulletSpawnPoint.position, BulletSpawnPoint.rotation);
             baseBullet.gameObject.SetActive(true);
@@ -39,7 +38,7 @@ public class BaseGun : MonoBehaviour
 
     public void Reload()
     {
-        _magazineIsEmpty = true;
+        MagazineIsEmpty = true;
         CurrentAmmo = MagazineSize;
         StartCoroutine(ToggleMagazineIsEmpty());
     }
@@ -53,6 +52,6 @@ public class BaseGun : MonoBehaviour
     private IEnumerator ToggleMagazineIsEmpty()
     {
         yield return new WaitForSeconds(ReloadTime);
-        _magazineIsEmpty = false;
+        MagazineIsEmpty = false;
     }
 }
