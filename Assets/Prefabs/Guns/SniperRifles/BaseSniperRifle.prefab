@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3990964475513838956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: -0.073, y: 0.284, z: 10.964}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6316765679192121076}
@@ -39,9 +39,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6316765679192121076}
-  - component: {fileID: 3339310025446992412}
   - component: {fileID: 6985528373201214489}
   - component: {fileID: 1602550709911207084}
+  - component: {fileID: 335001634034525616}
   m_Layer: 0
   m_Name: BaseSniperRifle
   m_TagString: Untagged
@@ -58,21 +58,13 @@ Transform:
   m_GameObject: {fileID: 8195048212470022639}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 2905701668325138323}
   - {fileID: 7342721174104167116}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3339310025446992412
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8195048212470022639}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6985528373201214489
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -129,6 +121,8 @@ MonoBehaviour:
   MagazineSize: 5
   ReloadTime: 2
   FireRate: 50
+  Accuracy: 0
+  FullAuto: 0
   BulletSpawnPoint: {fileID: 2905701668325138323}
   BaseBullet: {fileID: 7342721174104167088}
   CanShoot: 1
@@ -137,7 +131,14 @@ MonoBehaviour:
   NumberOfBulletsPerShot: 1
   IsBurstFire: 0
   BurstFireDelayBetweenShots: 0
-  Accuracy: 0
+--- !u!33 &335001634034525616
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8195048212470022639}
+  m_Mesh: {fileID: -2432090755550338912, guid: f8bc50d6ac7fef649bc90a030d3f2c69, type: 3}
 --- !u!1001 &8325971646927692407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -200,6 +201,14 @@ PrefabInstance:
     - target: {fileID: 1616050202080096452, guid: 9c5a67f8e446b154db6cbef779481cfb, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616050202080096455, guid: 9c5a67f8e446b154db6cbef779481cfb, type: 3}
+      propertyPath: Damage
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616050202080096455, guid: 9c5a67f8e446b154db6cbef779481cfb, type: 3}
+      propertyPath: BulletVelocity
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c5a67f8e446b154db6cbef779481cfb, type: 3}
