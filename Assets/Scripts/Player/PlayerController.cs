@@ -22,7 +22,11 @@ public class PlayerController : BaseEntity
     public int ShootKey;
     public int ADSKey;
 
-    public BaseGun Gun;
+    [Header("All Guns & Keycodes for weapon slots")]
+    public List<BaseGun> Guns;
+    public List<KeyCode> WeaponSlotKeycodes;
+
+    private BaseGun _currentGun;
 
     private Rigidbody _rigidbody;
 
@@ -37,6 +41,12 @@ public class PlayerController : BaseEntity
     {
         InitializeCharacterController();
         //_rigidbody = GetComponent<Rigidbody>();
+
+        if (Guns.Count > 0)
+        {
+            _currentGun = Guns[0];
+            _currentGun.gameObject.SetActive(true);
+        }
 
         _defaultPlayerHeight = transform.localScale.y;
         _defaultMovementSpeed = MovementSpeed;
@@ -60,6 +70,8 @@ public class PlayerController : BaseEntity
         CheckADS();
 
         CheckReload();
+
+        CheckChangeWeapon();
     }
 
     private void CheckMovementInput()
@@ -111,10 +123,11 @@ public class PlayerController : BaseEntity
 
     private void CheckShoot()
     {
-        if (Input.GetMouseButton(ShootKey) && Gun)
+        bool shootInput = _currentGun.FullAuto ? Input.GetMouseButton(ShootKey) : Input.GetMouseButtonDown(ShootKey);
+        if (shootInput && _currentGun)
         {
-            _isShooting = !Gun.MagazineIsEmpty;
-            Gun.Shoot();
+            _isShooting = !_currentGun.MagazineIsEmpty;
+            _currentGun.Shoot();
         }
         else if (Input.GetMouseButtonUp(ShootKey))
         {
@@ -124,7 +137,7 @@ public class PlayerController : BaseEntity
 
     private void CheckADS()
     {
-        if (Input.GetMouseButton(ADSKey) && Gun)
+        if (Input.GetMouseButton(ADSKey) && _currentGun)
         {
             _isADS = true;
             if (!_isCrouching)
@@ -144,13 +157,38 @@ public class PlayerController : BaseEntity
 
     private void CheckReload()
     {
-        if (Gun && Gun.CurrentAmmo < 1)
+        if (_currentGun && _currentGun.CurrentAmmo < 1)
         {
-            Gun.Reload();
+            _currentGun.Reload();
         }
-        else if (Input.GetKeyDown(ReloadKey) && Gun)
+        else if (Input.GetKeyDown(ReloadKey) && _currentGun)
         {
-            Gun.Reload();
+            _currentGun.Reload();
+        }
+    }
+
+    // This is for testing purpose, change it with a list of current weapons
+    private void CheckChangeWeapon()
+    {
+        if (Guns.Count > 0 && Guns.Count == WeaponSlotKeycodes.Count)
+        {
+            for (int i = 0; i < WeaponSlotKeycodes.Count; i++)
+            {
+                if (Input.GetKeyDown(WeaponSlotKeycodes[i]))
+                {
+                    DisableAllGuns();
+                    Guns[i].gameObject.SetActive(true);
+                    _currentGun = Guns[i];
+                }
+            }
+        }
+    }
+
+    private void DisableAllGuns()
+    {
+        foreach (BaseGun gun in Guns)
+        {
+            gun.gameObject.SetActive(false);
         }
     }
 }
