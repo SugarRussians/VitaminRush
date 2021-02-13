@@ -20,16 +20,19 @@ public abstract class BaseGun : MonoBehaviour
 
     public BaseBullet BaseBullet;
 
+    [HideInInspector]
     public bool CanShoot = true;
+    [HideInInspector]
     public bool MagazineIsEmpty;
-
+    [HideInInspector]
     public int CurrentAmmo;
 
+    [Header("Bullets per shot")]
     public int NumberOfBulletsPerShot = 1;
 
+    [Header("Burst Fire")]
     public bool IsBurstFire;
     public float BurstFireDelayBetweenShots;
-
 
     private void Awake()
     {
