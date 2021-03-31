@@ -1941,14 +1941,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa588486de67ca43a0bc631558989f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
-  - {fileID: 1381103940}
+  _points:
+  - {fileID: 1824774456}
   - {fileID: 2109430715}
   - {fileID: 333678554}
   - {fileID: 2017875353}
   - {fileID: 1051592302}
   - {fileID: 1381103940}
-  minRemainingDistance: 0.5
+  _minRemainingDistance: 5
 --- !u!1 &1766640399
 GameObject:
   m_ObjectHideFlags: 0

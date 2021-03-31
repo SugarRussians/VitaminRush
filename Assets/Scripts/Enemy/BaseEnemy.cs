@@ -5,37 +5,29 @@ using UnityEngine;
 public class BaseEnemy : BaseEntity
 {
     [Header("Radius for checking ")]
-    public float CheckRadius;
+    public float CheckRange;
 
     public bool PlayerInLineOfSight;
 
     public void CheckSurroundings()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, CheckRadius);
-
-        foreach (Collider collider in colliders)
+        GameObject player = GameObject.Find("Player");
+        if (Physics.Raycast(transform.position, player.transform.position - transform.position, out RaycastHit hitInfo, CheckRange))
         {
-            PlayerController player = collider.GetComponent<PlayerController>();
-            if (player && CheckIfPlayerIsInLineOfSight(player))
+            if (hitInfo.transform.gameObject == player)
             {
-                PlayerInLineOfSight = true;
-                break;
+                transform.LookAt(player.transform);
+                PlayerInLineOfSight = hitInfo.collider.gameObject.name == player.gameObject.name;
             }
             else
             {
                 PlayerInLineOfSight = false;
             }
         }
-    }
-
-    private bool CheckIfPlayerIsInLineOfSight(PlayerController player)
-    {
-        transform.LookAt(player.transform);
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo))
+        else
         {
-            return hitInfo.collider.gameObject.name == player.gameObject.name;
+            PlayerInLineOfSight = false;
         }
-        return false;
     }
 
     public void CheckSelfDestroyWhenDead()

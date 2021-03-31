@@ -6,11 +6,14 @@ public class ShootingEnemy : BaseEnemy
 {
     public BaseGun Gun;
 
+    public PatrolAgent PatrolAgent;
+
     private bool _isEnemyShooting;
 
     private void Awake()
     {
         InitializeCharacterController();
+        PatrolAgent = GetComponent<PatrolAgent>();
     }
 
     void Update()
@@ -31,11 +34,16 @@ public class ShootingEnemy : BaseEnemy
         if (PlayerInLineOfSight && Gun)
         {
             _isEnemyShooting = !Gun.MagazineIsEmpty;
+
+            PatrolAgent.Pause(true);
+
             Gun.Shoot();
         }
         else
         {
             _isEnemyShooting = false;
+
+            PatrolAgent.Pause(false);
         }
     }
 
