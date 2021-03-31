@@ -25,7 +25,7 @@ MonoBehaviour:
   EntityVelocity: {x: 0, y: 0, z: 0}
   IsGrounded: 0
   IsDead: 0
-  CheckRadius: 10
+  CheckRange: 5
   PlayerInLineOfSight: 0
   Gun: {fileID: 5798992328409932536}
 --- !u!1001 &33812606093779000
@@ -83,6 +83,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 4892079369506013999, guid: 9f81a9f14f05f184eb9693cc6767db94, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5587700078654857964, guid: 9f81a9f14f05f184eb9693cc6767db94, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7429794234614230590, guid: 9f81a9f14f05f184eb9693cc6767db94, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f81a9f14f05f184eb9693cc6767db94, type: 3}
 --- !u!114 &5798992328409932536 stripped
@@ -103,9 +115,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5869810421526539247, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5869810422245269321, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
       propertyPath: m_Name
       value: BaseEnemyShotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869810422245269321, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5869810422245269365, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
       propertyPath: m_RootOrder
@@ -151,7 +171,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2126575106082796219, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 198c98e9172681041b109e8f79401ba4, type: 3}
 --- !u!1 &8813451526007735935 stripped
 GameObject:

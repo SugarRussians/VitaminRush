@@ -6,39 +6,46 @@ using UnityEngine.AI;
 public class PatrolAgent : MonoBehaviour
 {
     [SerializeField]
-    private Transform[] points;
+    private Transform[] _points;
 
     [SerializeField]
-    private float minRemainingDistance = 5f;
-    private int destinationPoint = 0;
-    private NavMeshAgent agent;
+    private float _minRemainingDistance = 5f;
+    private int _destinationPoint = 0;
+    private NavMeshAgent _agent;
     
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.autoBraking = true;
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.autoBraking = true;
         GoToNextPoint();
     }
 
     void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance < minRemainingDistance)
+        if (!_agent.pathPending && _agent.remainingDistance < _minRemainingDistance)
         {
             GoToNextPoint();
         }
         //Debug.Log(agent.remainingDistance);
     }
     
-      void GoToNextPoint()
+    public void Pause(bool pause)
     {
-        if(points.Length == 0)
+        _agent.isStopped = pause;
+    }
+
+    private void GoToNextPoint()
+    {
+        if(_points.Length == 0)
         {
             Debug.LogError("no patrol points set to use in the patrolling script");
             enabled = false;
             return;
         }
-        agent.destination = points[destinationPoint].position;
-        destinationPoint = (destinationPoint + 1) % points.Length;
+        Vector3 newDestination = _points[_destinationPoint].position;
+        newDestination.y = transform.position.y;
+        _agent.destination = newDestination;
+        _destinationPoint = (_destinationPoint + 1) % _points.Length;
     }
 
    
